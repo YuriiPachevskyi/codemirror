@@ -1,0 +1,31 @@
+<!doctype html>
+
+    <title>CodeMirror: C-like mode</title>
+    <meta charset="utf-8"/>
+
+    <link rel="stylesheet" href="plugin/codemirror/lib/codemirror.css">
+    <script src="plugin/codemirror/lib/codemirror.js"></script>
+    <script src="plugin/codemirror/mode/clike/clike.js"></script>
+
+    <article>
+        <h2>C-like mode</h2>
+
+        <div>
+          <textarea id="c-code">
+#include <stdio.h>
+int main() {
+  
+  return 0;
+}
+          </textarea>
+        </div>
+        <script>
+            var cEditor = CodeMirror.fromTextArea(document.getElementById("c-code"), {
+                lineNumbers: true,
+                // matchBrackets: true,
+                mode: "text/x-csrc"
+            });
+            var mac = CodeMirror.keyMap.default == CodeMirror.keyMap.macDefault;
+            CodeMirror.keyMap.default[(mac ? "Cmd" : "Ctrl") + "-Space"] = "autocomplete";
+        </script>
+    </article>
