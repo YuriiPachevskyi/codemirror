@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="plugin/codemirror/lib/codemirror.css">
     <script src="plugin/codemirror/lib/codemirror.js"></script>
     <script src="plugin/codemirror/mode/clike/clike.js"></script>
+    <script >var task = "hello"</script>
       
     </script>
 
@@ -16,10 +17,9 @@
           <textarea id="c-code">
 #include <stdio.h>
 int main() {
-  
-  return 0;
-}
-          </textarea>
+
+    return 0;
+}</textarea>
             <br>
             <button onclick="hello()">Sibmit</button>
             <p>Suggestions: <span id="txtHint"></span></p>
@@ -46,7 +46,7 @@ int main() {
                         }
                     };
 
-                    var params = 'name=' + encodeURIComponent("yuso") + '&code=' + encodeURIComponent(str)
+                    var params = 'name=' + encodeURIComponent("yuso") + '&code=' + encodeURIComponent(str) +'&task'
 
 
                     xmlhttp.open("GET", "run.php?" + params, true);

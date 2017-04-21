@@ -1,28 +1,23 @@
 <?php
 
-$name = $_REQUEST["name"];
-$code = $_REQUEST["code"];
+// $name = $_REQUEST["name"];
+// $fileName = "hello"
+// $code = $_REQUEST["code"];
+$config = include("common/Config.php");
+$path = "$config->buildDir/$config->userName";
 
-$file = fopen("hello","w");
-fwrite($file, "test2");
-fclose($file);
 
-echo "name = " . $name . " code = " . $code;
+function saveToFile() {
+    $config = include("common/Config.php");
+    $pathToFile = $GLOBALS['path'] . "/hello.c";// . $config->userName . ;
+    $file = fopen($pathToFile,"w");
 
-// lookup all hints from array if $q is different from "" 
-// if ($q !== "") {
-//     $q = strtolower($q);
-//     $len=strlen($q);
-//     foreach($a as $name) {
-//         if (stristr($q, substr($name, 0, $len))) {
-//             if ($hint === "") {
-//                 $hint = $name;
-//             } else {
-//                 $hint .= ", $name";
-//             }
-//         }
-//     }
-// }
+    fwrite($file, $_REQUEST["code"]);
+    fclose($file);
+}
+
+
+saveToFile();
 
 // Output "no suggestion" if no hint was found or output correct values 
 // echo $hint === "" ? "no suggestion" : $hint;
