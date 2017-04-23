@@ -7,16 +7,22 @@ $buildDir = $config->buildDir;
 $path = "$config->buildDir/${userName}";
 
 
-function isExistUserDir() {
-    $dirsList = explode("\n", shell_exec("ls ${GLOBALS['buildDir']}"));
+function isExistUserDir($buildDir, $userName) {
+    $dirsList = explode("\n", shell_exec("ls ${buildDir}"));
 
     foreach($dirsList as $userDir){
-        if ($GLOBALS['userName'] === $userDir) {
+        if ($userName === $userDir) {
             return true;
         }
     }
 
     return false;
+}
+
+function createUserDir($buildDir, $userName) {
+    $resultCode = shell_exec("mkdir ${buildDir}/${userName} 2>&1");
+    // echo "create = ${buildDir}/${userName}";
+    echo $resultCode;
 }
 
 function saveToFile() {
@@ -33,8 +39,9 @@ function saveToFile() {
 
 // saveToFile();
 
-if (!isExistUserDir()) {
+if (!isExistUserDir($buildDir, $userName)) {
     echo "no exist";
+    createUserDir($buildDir, $userName);
 } else {
     echo "exist";
 }
