@@ -1,11 +1,23 @@
 <?php
 
-// $name = $_REQUEST["name"];
-// $fileName = "hello"
+$userName = $_REQUEST["userName"];
 // $code = $_REQUEST["code"];
 $config = include("common/Config.php");
-$path = "$config->buildDir/$config->userName";
+$buildDir = $config->buildDir;
+$path = "$config->buildDir/${userName}";
 
+
+function isExistUserDir() {
+    $dirsList = explode("\n", shell_exec("ls ${GLOBALS['buildDir']}"));
+
+    foreach($dirsList as $userDir){
+        if ($GLOBALS['userName'] === $userDir) {
+            return true;
+        }
+    }
+
+    return false;
+}
 
 function saveToFile() {
     $config = include("common/Config.php");
@@ -14,14 +26,18 @@ function saveToFile() {
 
     fwrite($file, $_REQUEST["code"]);
     fclose($file);
+
+    echo "pathToFile = " . $pathToFile;
 }
 
 
-saveToFile();
+// saveToFile();
 
-// Output "no suggestion" if no hint was found or output correct values 
-// echo $hint === "" ? "no suggestion" : $hint;
-
+if (!isExistUserDir()) {
+    echo "no exist";
+} else {
+    echo "exist";
+}
 
 
 
