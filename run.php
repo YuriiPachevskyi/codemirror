@@ -1,11 +1,9 @@
 <?php
 
 $userName = $_REQUEST["userName"];
-// $code = $_REQUEST["code"];
+$sourceCode = $_REQUEST["sourceCode"];
 $config = include("common/Config.php");
 $buildDir = $config->buildDir;
-$path = "$config->buildDir/${userName}";
-
 
 function isExistUserDir($buildDir, $userName) {
     $dirsList = explode("\n", shell_exec("ls ${buildDir}"));
@@ -21,32 +19,21 @@ function isExistUserDir($buildDir, $userName) {
 
 function createUserDir($buildDir, $userName) {
     $resultCode = shell_exec("mkdir ${buildDir}/${userName} 2>&1");
-    // echo "create = ${buildDir}/${userName}";
-    echo $resultCode;
 }
 
-function saveToFile() {
-    $config = include("common/Config.php");
-    $pathToFile = $GLOBALS['path'] . "/hello.c";// . $config->userName . ;
-    $file = fopen($pathToFile,"w");
+function saveToFile($buildDir, $userName, $sourceCode) {
+    $userBuildDir = "${buildDir}/${userName}";
+    $pathToFile = "${userBuildDir}/hello.c";
+    $programFile = fopen($pathToFile,"w");
 
-    fwrite($file, $_REQUEST["code"]);
-    fclose($file);
-
-    echo "pathToFile = " . $pathToFile;
+    fwrite($programFile, $sourceCode);
+    fclose($programFile);
 }
-
-
-// saveToFile();
 
 if (!isExistUserDir($buildDir, $userName)) {
-    echo "no exist";
     createUserDir($buildDir, $userName);
-} else {
-    echo "exist";
 }
-
-
+saveToFile($buildDir, $userName, $sourceCode);
 
 // $output2 = shell_exec('gcc prog.c -o main 2>&1');
 // echo "<pre>$output2</pre>";
