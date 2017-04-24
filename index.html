@@ -11,7 +11,8 @@
 
                 xmlhttp.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
-                        document.getElementById("txtHint").innerHTML = this.responseText;
+                        // document.getElementById("txtHint").innerHTML = this.responseText;
+                        checkCookie()
                     }
                 };
                 xmlhttp.open("GET", "lib/Authorization.php?q=" + params, true);
@@ -19,6 +20,7 @@
             }
         }
         </script>
+        <script src="common/cookie.js"></script>
     </head>
     <body>
         <p><b>Start typing a name in the input field below:</b></p>
@@ -26,7 +28,7 @@
                 UserName: <input type="text" id="userName">
             </form>
             <form>
-                Password: <input type="password" id="password">
+                Password: <input type="password" id="password" visible="0">
             </form>
         <p>Suggestions: <span id="txtHint"></span></p>
         <button onclick="validateUserData(document.getElementById('userName').value, document.getElementById('password').value)">Sibmit</button>
